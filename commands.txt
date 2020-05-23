@@ -1,0 +1,6 @@
+Commands for the telnet connection:
+telnet 192.168.31.1
+wget http://192.168.31.177/xiaomi-router-rootfs0.bin
+wget http://192.168.31.177/xiaomi-router-kernel1.bin&&nvram set uart_en=1&&nvram set bootdelay=5&&nvram set flag_try_sys1_failed=1&&nvram commit
+mtd write xiaomi-router-kernel1.bin kernel1
+mtd -r write xiaomi-router-rootfs0.bin rootfs0
