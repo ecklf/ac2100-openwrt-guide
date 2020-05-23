@@ -26,12 +26,21 @@ If you find any mistakes in this guide _please_ submit a PR 👍🏻.
 2. Two LAN cables
 3. python3, scapy, netcat
 4. Files from this repo
+   - busybox
    - [pppoe-simulator.py](https://github.com/Percy233/PPPoE_Simulator-for-RM2100-exploit)
    - [pppd-cve.py](https://gist.github.com/namidairo/1e3fb3404c9f148474c06ae6616962f3)
    - xiaomi-router-kernel1.bin
    - xiaomi-router-rootfs0.bin
 
-I'll be using a Macintosh in this guide. If you use Linux I assume you are smart enough to install the required packages on your machine. Please note that python v3 is aliased to `python3` on macOS. Replace `python3` and `pip3` with `python` and `pip` on Windows/Linux accordingly.
+I'll be using a Macintosh in this guide. If you use Linux I assume you are smart enough to install the required packages on your machine. Please note that python3 is aliased to `python3` on macOS. Replace `python3` and `pip3` with `python` and `pip` on Windows/Linux accordingly.
+
+Make sure to check your python version with:
+
+```sh
+python --version
+```
+
+Version 2 will **not** work.
 
 ## Install packages (macOS specific)
 
@@ -103,15 +112,15 @@ interface = "yourinterface"
 
 ## 6. Setup PPPOE simulator
 
-Start the `pppoe-simulator` (you may need to run this as `root` for scappy to function properly). You should see `Waiting for packets`.
+- Open up http://192.168.31.1 in your browser
+- If there is a terms and conditions screen, click on 马上体验
+- Click on 继续配置
 
 <p align="center">
     <img height="auto" width="auto" src="images/5.png" />
 </p>
 
-Open up http://192.168.31.1 in your browser and click on 马上体验.
-
-Continue with clicking on 继续配置.
+Start the `pppoe-simulator` (you may need to run this as `root` for scappy to function properly). You should see `Waiting for packets`.
 
 <p align="center">
     <img height="auto" width="auto" src="images/6.png" />
@@ -233,7 +242,7 @@ What you can do now:
 
 ## 7. Post install
 
-You can now connect to your device via `ssh` or the `LuCI` web interface.
+You can now connect to your device via `ssh`.
 
 ```
 username: root
@@ -246,8 +255,6 @@ The router IP should be visible in your network settings (in my case http://192.
     <img height="auto" width="auto" src="images/17.png" />
 </p>
 
-`LuCI` is set up with Mandarin Chinese on this image. To change do the following (please connect your router to the internet for this):
-
 ```sh
 ssh root@routerip
 ```
@@ -255,6 +262,15 @@ ssh root@routerip
 <p align="center">
     <img height="auto" width="auto" src="images/18.png" />
 </p>
+
+The web interface `LuCI` is already included with Simplified Chinese on this image. If you are using **another image** you need to install `LuCI` manually:
+
+```sh
+opkg update
+opkg install luci
+```
+
+To switch from Chinese to another language, please run the following (make sure to be connected to the internet):
 
 ```sh
 opkg update
