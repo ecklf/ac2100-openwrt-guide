@@ -103,7 +103,7 @@ interface = "yourinterface"
 
 ## 6. Setup PPPOE simulator
 
-Start the `pppoe-simulator` (you may need to run this as `root` for scappy is able to function properly). You should see `Waiting for packets`.
+Start the `pppoe-simulator` (you may need to run this as `root` for scappy to function properly). You should see `Waiting for packets`.
 
 <p align="center">
     <img height="auto" width="auto" src="images/5.png" />
