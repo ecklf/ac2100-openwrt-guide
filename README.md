@@ -173,7 +173,7 @@ python3 pppd-cve.py
 
 When the packet has been sent successfully, you should now get a connection from `192.168.31.1:63627` in your `netcat` session.
 
-This connection can be unstable and you may need to rereun `netcat` and `pppd-cve.py` if it drops.
+This connection can be unstable and you may need to rerun `netcat` and `pppd-cve.py` if it drops.
 
 If you do the following quickly there should be no problem:
 
