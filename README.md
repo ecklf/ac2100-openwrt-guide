@@ -110,7 +110,7 @@ interface = "yourinterface"
     <img height="auto" width="auto" src="images/4.png" />
 </p>
 
-## 6. Setup PPPoE simulator
+## 6. PPPoE simulator
 
 - Open up http://192.168.31.1 in your browser
 - If there is a terms and conditions screen, click on 马上体验
@@ -156,7 +156,7 @@ Also your web browser should now display this instead of a loading spinner:
     <img height="auto" width="auto" src="images/10.png" />
 </p>
 
-## 7. Setup and run the exploit
+## 7. Running the exploit
 
 Open up two new terminal sessions.
 
@@ -246,9 +246,9 @@ What you can do now:
 - Remove the bridge cable
 - Connect the router to the internet again
 
-## 7. Post-install
+## 8. Post-install
 
-Connect to your device via `ssh`.
+### Connect to your device via `ssh`.
 
 ```
 username: root
@@ -268,6 +268,8 @@ ssh root@routerip
 <p align="center">
     <img height="auto" width="auto" src="images/18.png" />
 </p>
+
+### LuCI
 
 The web interface `LuCI` is already included with Simplified Chinese on this image. If you are using **another image** you need to install `LuCI` manually:
 
