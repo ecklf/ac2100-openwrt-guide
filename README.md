@@ -4,6 +4,23 @@
     <img height="auto" width="auto" src="images/router_front.jpg" />
 </p>
 
+## Contents
+
+- [Acknowledgements and resources](#acknowledgements-and-Resources)
+- [Migrating from old image](#migrating-from-old-image)
+- [Intro and Setup](#intro-and-Setup)
+  - [Disclaimer](#disclaimer)
+  - [Requirements](#requirements)
+- [Installing packages](<#installing-packages-(macOS-specific)>)
+- [1. Download files](#1.-download-files)
+- [2. Reset your router](#2.-reset-your-router)
+- [3. Insert LAN cables](#3.-insert-lan-cables)
+- [4. Setup TCP/IP](#4.-setup-tcp/ip)
+- [5. Determining your network interface](#5.-determining-your-network-interface)
+- [6. PPPoE simulator](#6.-pppoe-simulator)
+- [7. Running the exploit](#7.-running-the-exploit)
+- [8. Post-install](#8.-post-install)
+
 ## Acknowledgements and resources
 
 This guide is based on the video of [韩风 Talk](https://www.youtube.com/watch?v=xexqu3veedw). Since many people don't know any Mandarin or don't use Windows, I've decided to write down my method of getting this to work. This is also helping people to understand more about the process rather than using a one-click solution.
@@ -11,6 +28,18 @@ This guide is based on the video of [韩风 Talk](https://www.youtube.com/watch?
 [pppoe-simulator.py](https://github.com/Percy233/PPPoE_Simulator-for-RM2100-exploit) by Percy233
 
 [pppd-cve.py](https://gist.github.com/namidairo/1e3fb3404c9f148474c06ae6616962f3) by namidairo
+
+## Migrating from old image
+
+**You can skip reading this when you didn't flash with the old guide**.
+
+In case you used the Chinese Redmi image you can use the `sysupgrade` package provided in this repo. Since the R2100 (Black Cylinder) now is uniquely identified you will need to force the system upgrade.
+
+Use any tool of your choice to transfer the sysupgrade.bin to the `/tmp` directory of your router
+
+```sh
+sysupgrade -v -F -n /tmp/xiaomi-router-sysupgrade.bin
+```
 
 ## Intro and Setup
 
@@ -32,7 +61,7 @@ If you find any mistakes in this guide, _please_ submit a PR 👍🏻.
    - xiaomi-router-kernel1.bin
    - xiaomi-router-rootfs0.bin
 
-I'll be using a Macintosh in this guide. If you use Linux, I assume you are smart enough to install the required packages yourself. Please note that python3 is aliased to `python3` on macOS. Replace `python3` and `pip3` with `python` and `pip` on Windows/Linux accordingly.
+I'll be using a Macintosh in this guide. If you use Linux, I assume you are smart enough to install the required packages yourself. Please note that python3 is aliased to `python3` on macOS and some Linux distributions. Replace `python3` and `pip3` with `python` and `pip` on Windows/Linux accordingly.
 
 Before we start, please check your python version with:
 
@@ -42,7 +71,7 @@ python --version
 
 Version 2 will **not** work.
 
-## Install packages (macOS specific)
+## Installing packages (macOS specific)
 
 Go to https://brew.sh/ and run the installation script in your terminal, then proceed to install the required packages:
 
@@ -60,6 +89,14 @@ Install `scapy` for python:
 <p align="center">
     <img height="auto" width="auto" src="images/1.png" />
 </p>
+
+Feel free to use your own images if you know what you are doing. For the case you are using the images in this repo, please ensure the provided `.bin` files have the correct `sha256sum`:
+
+```sh
+sha256sum *.bin
+c5ec937f1a1d0e91f50b1ae5b154e3e1e8795160479569062bdc8b178bf92ae8  xiaomi-router-kernel1.bin
+a1106e346818999c606469e76b181f908c4138de1d64fb8936fa0c7e2196d6ce  xiaomi-router-rootfs0.bin
+```
 
 ## 2. Reset your router
 
@@ -255,7 +292,7 @@ username: root
 password: password
 ```
 
-The router IP should be visible in your network settings (in my case http://192.168.1.1).
+The router IP should be visible in your network settings (in my case http://192.168.1.1). LuCI webinterface is configured with HTTPS on this image. To use HTTPS you need to take additional steps to trust the certificate on your machine. If you want to just bypass the error you will need to use Firefox and add an exception.
 
 <p align="center">
     <img height="auto" width="auto" src="images/17.png" />
@@ -267,36 +304,4 @@ ssh root@routerip
 
 <p align="center">
     <img height="auto" width="auto" src="images/18.png" />
-</p>
-
-### LuCI
-
-The web interface `LuCI` is already included with Simplified Chinese on this image. If you are using **another image** you need to install `LuCI` manually:
-
-```sh
-opkg update
-opkg install luci
-```
-
-To switch from Chinese to another language, please run the following (make sure to be connected to the internet):
-
-```sh
-opkg update
-opkg install luci-i18n-base-en
-```
-
-If you need another language you can list all locale packages with:
-
-```
-opkg list luci-i18n-\*
-```
-
-Changing the language in the web interface:
-
-<p align="center">
-    <img height="auto" width="auto" src="images/19.png" />
-</p>
-
-<p align="center">
-    <img height="auto" width="auto" src="images/20.png" />
 </p>
