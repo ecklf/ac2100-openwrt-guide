@@ -11,15 +11,15 @@
 - [Intro and Setup](#intro-and-Setup)
   - [Disclaimer](#disclaimer)
   - [Requirements](#requirements)
-- [Installing packages](<#installing-packages-(macOS-specific)>)
-- [1. Download files](#1.-download-files)
-- [2. Reset your router](#2.-reset-your-router)
-- [3. Insert LAN cables](#3.-insert-lan-cables)
-- [4. Setup TCP/IP](#4.-setup-tcp/ip)
-- [5. Determining your network interface](#5.-determining-your-network-interface)
-- [6. PPPoE simulator](#6.-pppoe-simulator)
-- [7. Running the exploit](#7.-running-the-exploit)
-- [8. Post-install](#8.-post-install)
+- [Installing packages (macOS specific)](#installing-packages-macos-specific)
+- [1. Download files](#1-download-files)
+- [2. Reset your router](#2-reset-your-router)
+- [3. Insert LAN cables](#3-insert-lan-cables)
+- [4. Setup TCP/IP](#4-setup-tcp/ip)
+- [5. Determining your network interface](#5-determining-your-network-interface)
+- [6. PPPoE simulator](#6-pppoe-simulator)
+- [7. Running the exploit](#7-running-the-exploit)
+- [8. Post-install](#8-post-install)
 
 ## Acknowledgements and resources
 
@@ -292,7 +292,7 @@ username: root
 password: password
 ```
 
-The router IP should be visible in your network settings (in my case http://192.168.1.1). LuCI webinterface is configured with HTTPS on this image. To use HTTPS you need to take additional steps to trust the certificate on your machine. If you want to just bypass the error you will need to use Firefox and add an exception.
+The router IP should be visible in your network settings (in my case http://192.168.1.1). LuCI web-interface is configured with HTTPS on this image. To use HTTPS you need to take additional steps to trust the certificate on your machine. If you want to just bypass the HTTPS errors you will need to use Firefox and add an exception.
 
 <p align="center">
     <img height="auto" width="auto" src="images/17.png" />
