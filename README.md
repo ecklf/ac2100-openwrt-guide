@@ -15,7 +15,7 @@
 - [1. Download files](#1-download-files)
 - [2. Reset your router](#2-reset-your-router)
 - [3. Insert LAN cables](#3-insert-lan-cables)
-- [4. Setup TCP/IP](#4-setup-tcp/ip)
+- [4. Setup TCP/IP](#4-setup-tcpip)
 - [5. Determining your network interface](#5-determining-your-network-interface)
 - [6. PPPoE simulator](#6-pppoe-simulator)
 - [7. Running the exploit](#7-running-the-exploit)
