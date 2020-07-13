@@ -20,6 +20,8 @@
 - [6. PPPoE simulator](#6-pppoe-simulator)
 - [7. Running the exploit](#7-running-the-exploit)
 - [8. Post-install](#8-post-install)
+- [9. Miscellaneous](#9-miscellaneous)
+  - [Flash Commands](#flash-commands)
 
 ## Acknowledgements and resources
 
