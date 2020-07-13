@@ -94,12 +94,24 @@ Install `scapy` for python:
 
 Feel free to use your own images if you know what you are doing. For the case you are using the images in this repo, please ensure the provided `.bin` files have the correct `sha256sum`:
 
+BEGIN
+hello
+world
+how
+are
+you
+END
+
+<!-- BEGIN-SHA256SUM -->
+
 ```sh
 sha256sum *bin
 9242477eaa7df12e00d369d5132b754b76af7dc8e7f4cd9e1c1483aba824ebbe  xiaomi-router-kernel1.bin
-141d6af6ae3b41c44fe8fe3728638acf1b286e5f204cd16381593c10f2cdd94c  xiaomi-router-rootfs0.bin
-e53c69e2443154feb80320ebc1c58c10e08076f132291f01d9d7f5160c0aed6c  xiaomi-router-sysupgrade.bin
+ab6a9594d0b4facdc81585c218537a50afde7f6fdd53d73956ac2bad600420a4  xiaomi-router-rootfs0.bin
+65867ab519093581aa6019c41dbeb8346a8c50f016154f22e65461a9113e1c57  xiaomi-router-sysupgrade.bin
 ```
+
+<!-- END-SHA256SUM -->
 
 ## 2. Reset your router
 
@@ -288,7 +300,7 @@ What you can do now:
 
 ## 8. Post-install
 
-### Connect to your device via `ssh`.
+### Connect to your device via `ssh`
 
 ```
 username: root
@@ -308,3 +320,27 @@ ssh root@routerip
 <p align="center">
     <img height="auto" width="auto" src="images/18.png" />
 </p>
+
+## 9. Miscellaneous
+
+### Flash commands
+
+Partition names if you are already on OpenWRT:
+
+```sh
+mtd write xiaomi-router-kernel1.bin kernel
+mtd write xiaomi-router-rootfs0.bin ubi
+```
+
+Partition names if you are on stock firmware:
+
+```sh
+mtd write xiaomi-router-kernel1.bin kernel1
+mtd -r write xiaomi-router-rootfs0.bin rootfs0
+```
+
+### Prebuilt images by @scp07
+
+Also includes stock recovery image.
+
+- [Google Drive](https://drive.google.com/drive/folders/1WTWvOp-6B54hsCDpuo_hf2JKAaUwmZFG)
