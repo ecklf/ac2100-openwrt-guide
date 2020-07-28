@@ -22,6 +22,7 @@
 - [8. Post-install](#8-post-install)
 - [9. Miscellaneous](#9-miscellaneous)
   - [Flash Commands](#flash-commands)
+  - [Prebuilt images by @scp07](#prebuilt-images-by-scp07)
 
 ## Acknowledgements and resources
 
