@@ -241,6 +241,13 @@ python3 pppd-cve.py
 
 When the packet has been sent successfully, you should be able to see a connection from `192.168.31.1:63627` in your `netcat` session.
 
+If you don't see a connection, your router may have a different MAC address. Please adjust [`pppd-cve.py`](https://github.com/impulse/ac2100-openwrt-guide/blob/master/pppd-cve.py#L17) accordingly.
+
+```py
+# pppd-cve.py#L17
+if src.startswith("your:router:mac")
+```
+
 This connection can be unstable and you may need to rerun `netcat` and `pppd-cve.py` if it drops.
 
 If you do the following commands quickly, there should be no issues:
