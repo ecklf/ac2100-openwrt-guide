@@ -95,14 +95,6 @@ Install `scapy` for python:
 
 Feel free to use your own images if you know what you are doing. For the case you are using the images in this repo, please ensure the provided `.bin` files have the correct `sha256sum`:
 
-BEGIN
-hello
-world
-how
-are
-you
-END
-
 <!-- BEGIN-SHA256SUM -->
 
 ```sh
