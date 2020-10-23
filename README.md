@@ -399,5 +399,4 @@ Also includes stock recovery image.
 - [Google Drive](https://drive.google.com/drive/folders/1WTWvOp-6B54hsCDpuo_hf2JKAaUwmZFG)
 
 ### Translations
-- [Spanish (Text)](https://github.com/albertodlc/ac2100-openwrt-guide). By @albertodlc
 - [Spanish (Video)](https://youtu.be/RnIs7BHYrT4)
