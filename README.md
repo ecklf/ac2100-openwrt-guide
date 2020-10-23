@@ -11,16 +11,19 @@
 - [Intro and Setup](#intro-and-Setup)
   - [Disclaimer](#disclaimer)
   - [Requirements](#requirements)
-- [Installing packages (macOS specific)](#installing-packages-macos-specific)
-- [1. Download files](#1-download-files)
-- [2. Reset your router](#2-reset-your-router)
-- [3. Insert LAN cables](#3-insert-lan-cables)
-- [4. Setup TCP/IP](#4-setup-tcpip)
-- [5. Determining your network interface](#5-determining-your-network-interface)
-- [6. PPPoE simulator](#6-pppoe-simulator)
-- [7. Running the exploit](#7-running-the-exploit)
-- [8. Post-install](#8-post-install)
-- [9. Miscellaneous](#9-miscellaneous)
+- [Installing packages (macOS)](#installing-packages-macos)
+- [Installing packages (Ubuntu)](#installing-packages-ubuntu)
+- [Installing OpenWRT](#installing-openwrt)
+    - [1. Download files](#1-download-files)
+    - [2. Reset your router](#2-reset-your-router)
+    - [3. Insert LAN cables](#3-insert-lan-cables)
+    - [4. Setup TCP/IP](#4-setup-tcpip)
+    - [5. Determining your network interface](#5-determining-your-network-interface)
+    - [6. PPPoE simulator](#6-pppoe-simulator)
+    - [7. Running the exploit](#7-running-the-exploit)
+    - [8. Post-install](#8-post-install)
+- [Miscellaneous](#miscellaneous)
+  - [Translations](#translations)
   - [Flash Commands](#flash-commands)
   - [Prebuilt images by @scp07](#prebuilt-images-by-scp07)
 
@@ -64,27 +67,75 @@ If you find any mistakes in this guide, _please_ submit a PR 👍🏻.
    - xiaomi-router-kernel1.bin
    - xiaomi-router-rootfs0.bin
 
-I'll be using a Macintosh in this guide. If you use Linux, I assume you are smart enough to install the required packages yourself. Please note that python3 is aliased to `python3` on macOS and some Linux distributions. Replace `python3` and `pip3` with `python` and `pip` on Windows/Linux accordingly.
+Install instructions are available for macOS and Ubuntu. In case you use Windows or an other Linux distribution, I assume you are smart enough to install the required packages yourself.
+
+Please note that python3 is aliased to `python3` on macOS and Ubuntu (and in some other GNU/Linux distributions). Replace `python3` and `pip3` with `python` and `pip` on Windows - GNU/Linux accordingly.
+
+## Installing packages (macOS)
 
 Before we start, please check your python version with:
 
 ```sh
-python --version
+python3 --version
 ```
 
 Version 2 will **not** work.
 
-## Installing packages (macOS specific)
 
-Go to https://brew.sh/ and run the installation script in your terminal, then proceed to install the required packages:
+In case you don't have a version of Python installed (or you have the version 2) go to https://brew.sh/ and run the installation script in your terminal, then proceed to install the required packages:
 
-`brew install python3 netcat`
+```sh
+brew install python3 netcat
+```
 
 Install `scapy` for python:
 
-`pip3 install scapy`
+```sh
+pip3 install scapy
+```
 
-## 1. Download files
+## Installing packages (Ubuntu)
+
+Thanks to @albertodlc for the instructions.
+
+Before we start, please open a terminal  (`ctrl + t`) and check your python version with:
+
+```sh
+python3 --version
+```
+
+Version 2 will **not** work.
+
+In case you don't have a version of Python installed (or you have the version 2), proceed to install the required packages with:
+
+```sh
+sudo apt update
+sudo apt install python3
+sudo apt install python3-pip
+```
+
+And also check if you have all the network packages and dependencies:
+
+```sh
+ifconfig
+```
+
+If it shows an error, run the following command:
+
+```sh
+sudo apt install net-tools
+```
+
+Then install `scapy` and `netcat` for python:
+
+(Don't forget the `sudo` in the first command)
+```sh
+sudo apt install python3-scapy
+pip3 install netcat
+```
+
+## Installing OpenWRT
+### 1. Download files
 
 - Clone the repo or download as `.zip`
 - Make a folder with the following files and `cd` into it
@@ -99,21 +150,22 @@ Feel free to use your own images if you know what you are doing. For the case yo
 
 ```sh
 sha256sum *bin
-9242477eaa7df12e00d369d5132b754b76af7dc8e7f4cd9e1c1483aba824ebbe  xiaomi-router-kernel1.bin
-ab6a9594d0b4facdc81585c218537a50afde7f6fdd53d73956ac2bad600420a4  xiaomi-router-rootfs0.bin
-65867ab519093581aa6019c41dbeb8346a8c50f016154f22e65461a9113e1c57  xiaomi-router-sysupgrade.bin
+63dba28c89e3df484419aa9079c4fc80ef183f1dcc4591d9935c25fde65f49e4  xiaomi-router-initramfs-kernel.bin
+deb8b1b0c5b9c0ada4f944382ba935c9e1c132faea88818f19790564b3e74fde  xiaomi-router-kernel1.bin
+4b7d9766d8f5454a5733fbb0ad15eee6bf92e18cdbe6a043f755e3812ba21718  xiaomi-router-rootfs0.bin
+c7ee444c818097c67aca16aafdb3e983f3716d05256367e0244db8fc3a0d36b4  xiaomi-router-sysupgrade.bin
 ```
 
 <!-- END-SHA256SUM -->
 
-## 2. Reset your router
+### 2. Reset your router
 
 - Plug in your AC2100
 - Wait for the system light to turn blue
 - Hold the reset button until the light turns yellow
 - Plug out your router
 
-## 3. Insert LAN cables
+### 3. Insert LAN cables
 
 - Bridge WAN and Port 1 (blue) with your first LAN cable
 - Connect the second LAN cable to Port 2 and your computer (yellow)
@@ -122,13 +174,14 @@ ab6a9594d0b4facdc81585c218537a50afde7f6fdd53d73956ac2bad600420a4  xiaomi-router-
     <img height="auto" width="auto" src="images/router_back.jpg" />
 </p>
 
-## 4. Setup TCP/IP
+### 4. Setup TCP/IP
 
 - Go to your network settings
 - Set the following for IPv4
 
 <p align="center">
     <img height="auto" width="auto" src="images/2.png" />
+    <img height="auto" width="auto" src="images/2-1.png" />
 </p>
 
 - Plug in your router
@@ -140,7 +193,7 @@ You should now be able to ping the router at `192.168.31.1`.
     <img height="auto" width="auto" src="images/3.png" />
 </p>
 
-## 5. Determining your network interface
+### 5. Determining your network interface
 
 - Run `ifconfig`
 - Check for an interface with configured address `192.168.31.177` (see image below)
@@ -155,7 +208,14 @@ interface = "yourinterface"
     <img height="auto" width="auto" src="images/4.png" />
 </p>
 
-## 6. PPPoE simulator
+- Check the MAC address from [`pppd-cve.py`](https://github.com/impulse/ac2100-openwrt-guide/blob/master/pppd-cve.py#L17) and adjust it accordingly to your device (you can check it in the bottom of the router).
+
+```py
+# pppd-cve.py#L17
+if src.startswith("your:router:mac")
+```
+
+### 6. PPPoE simulator
 
 - Open up http://192.168.31.1 in your browser
 - If there is a terms and conditions screen, click on 马上体验
@@ -201,7 +261,7 @@ Also your web browser should now display this instead of a loading spinner:
     <img height="auto" width="auto" src="images/10.png" />
 </p>
 
-## 7. Running the exploit
+### 7. Running the exploit
 
 Open up two new terminal sessions.
 
@@ -232,13 +292,6 @@ python3 pppd-cve.py
 </p>
 
 When the packet has been sent successfully, you should be able to see a connection from `192.168.31.1:63627` in your `netcat` session.
-
-If you don't see a connection, your router may have a different MAC address. Please adjust [`pppd-cve.py`](https://github.com/impulse/ac2100-openwrt-guide/blob/master/pppd-cve.py#L17) accordingly.
-
-```py
-# pppd-cve.py#L17
-if src.startswith("your:router:mac")
-```
 
 This connection can be unstable and you may need to rerun `netcat` and `pppd-cve.py` if it drops.
 
@@ -298,9 +351,9 @@ What you can do now:
 - Remove the bridge cable
 - Connect the router to the internet again
 
-## 8. Post-install
+### 8. Post-install
 
-### Connect to your device via `ssh`
+#### Connect to your device via `ssh`
 
 ```
 username: root
@@ -321,7 +374,7 @@ ssh root@routerip
     <img height="auto" width="auto" src="images/18.png" />
 </p>
 
-## 9. Miscellaneous
+## Miscellaneous
 
 ### Flash commands
 
@@ -344,3 +397,7 @@ mtd -r write xiaomi-router-rootfs0.bin rootfs0
 Also includes stock recovery image.
 
 - [Google Drive](https://drive.google.com/drive/folders/1WTWvOp-6B54hsCDpuo_hf2JKAaUwmZFG)
+
+### Translations
+- [Spanish (Text)](https://github.com/albertodlc/ac2100-openwrt-guide). By @albertodlc
+- [Spanish (Video)](https://youtu.be/RnIs7BHYrT4)
