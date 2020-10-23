@@ -399,4 +399,5 @@ Also includes stock recovery image.
 - [Google Drive](https://drive.google.com/drive/folders/1WTWvOp-6B54hsCDpuo_hf2JKAaUwmZFG)
 
 ### Translations
+- [中文 （视频）](https://www.youtube.com/watch?v=xexqu3veedw)
 - [Spanish (Video)](https://youtu.be/RnIs7BHYrT4)
