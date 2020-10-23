@@ -23,9 +23,9 @@
     - [7. Running the exploit](#7-running-the-exploit)
     - [8. Post-install](#8-post-install)
 - [Miscellaneous](#miscellaneous)
-  - [Translations](#translations)
   - [Flash Commands](#flash-commands)
   - [Prebuilt images by @scp07](#prebuilt-images-by-scp07)
+  - [Translations](#translations)
 
 ## Acknowledgements and resources
 
