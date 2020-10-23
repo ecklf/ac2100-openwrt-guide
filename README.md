@@ -11,24 +11,25 @@
 - [Intro and Setup](#intro-and-Setup)
   - [Disclaimer](#disclaimer)
   - [Requirements](#requirements)
-- [Installing packages (macOS specific)](#installing-packages-macos-specific)
-- [Installing packages (macOS specific)](#installing-packages-ubuntu-specific)
-- [Installing OpenWRT (shared by both OS)](#installing-openwrt-shared-by-both-os)
-- [1. Download files](#1-download-files)
-- [2. Reset your router](#2-reset-your-router)
-- [3. Insert LAN cables](#3-insert-lan-cables)
-- [4. Setup TCP/IP](#4-setup-tcpip)
-- [5. Determining your network interface](#5-determining-your-network-interface)
-- [6. PPPoE simulator](#6-pppoe-simulator)
-- [7. Running the exploit](#7-running-the-exploit)
-- [8. Post-install](#8-post-install)
-- [9. Miscellaneous](#9-miscellaneous)
+- [Installing packages (macOS)](#installing-packages-macos)
+- [Installing packages (Ubuntu)](#installing-packages-ubuntu)
+- [Installing OpenWRT](#installing-openwrt)
+    - [1. Download files](#1-download-files)
+    - [2. Reset your router](#2-reset-your-router)
+    - [3. Insert LAN cables](#3-insert-lan-cables)
+    - [4. Setup TCP/IP](#4-setup-tcpip)
+    - [5. Determining your network interface](#5-determining-your-network-interface)
+    - [6. PPPoE simulator](#6-pppoe-simulator)
+    - [7. Running the exploit](#7-running-the-exploit)
+    - [8. Post-install](#8-post-install)
+- [Miscellaneous](#miscellaneous)
+  - [Translations](#translations)
   - [Flash Commands](#flash-commands)
   - [Prebuilt images by @scp07](#prebuilt-images-by-scp07)
 
 ## Acknowledgements and resources
 
-This guide is based on the video of [韩风 Talk](https://www.youtube.com/watch?v=xexqu3veedw). Also you can find another guide in Spanish here [Domotica en casa](https://youtu.be/RnIs7BHYrT4) with all the process. Since many people don't know any Mandarin or don't use Windows, I've decided to write down my method of getting this to work. This is also helping people to understand more about the process rather than using a one-click solution.
+This guide is based on the video of [韩风 Talk](https://www.youtube.com/watch?v=xexqu3veedw). Since many people don't know any Mandarin or don't use Windows, I've decided to write down my method of getting this to work. This is also helping people to understand more about the process rather than using a one-click solution.
 
 [pppoe-simulator.py](https://github.com/Percy233/PPPoE_Simulator-for-RM2100-exploit) by Percy233
 
@@ -66,11 +67,11 @@ If you find any mistakes in this guide, _please_ submit a PR 👍🏻.
    - xiaomi-router-kernel1.bin
    - xiaomi-router-rootfs0.bin
 
-I'll be using a Macintosh and Ubuntu (thanks to [albertodlc](https://github.com/albertodlc/ac2100-openwrt-guide)) in this guide . In case you use Windows I assume you are smart enough to install the required packages yourself.
+Install instructions are available for macOS and Ubuntu. In case you use Windows or an other Linux distribution, I assume you are smart enough to install the required packages yourself.
 
 Please note that python3 is aliased to `python3` on macOS and Ubuntu (and in some other GNU/Linux distributions). Replace `python3` and `pip3` with `python` and `pip` on Windows - GNU/Linux accordingly.
 
-## Installing packages (macOS specific)
+## Installing packages (macOS)
 
 Before we start, please check your python version with:
 
@@ -93,7 +94,9 @@ Install `scapy` for python:
 pip3 install scapy
 ```
 
-## Installing packages (Ubuntu specific)
+## Installing packages (Ubuntu)
+
+Thanks to @albertodlc for the instructions.
 
 Before we start, please open a terminal  (`ctrl + t`) and check your python version with:
 
@@ -103,7 +106,7 @@ python3 --version
 
 Version 2 will **not** work.
 
-In case you don't have a version of Python installed (or you have the version 2) proceed to install the required packages with:
+In case you don't have a version of Python installed (or you have the version 2), proceed to install the required packages with:
 
 ```sh
 sudo apt update
@@ -117,7 +120,7 @@ And also check if you have all the network packages and dependencies:
 ifconfig
 ```
 
-If it shows an error type in the terminal
+If it shows an error, run the following command:
 
 ```sh
 sudo apt install net-tools
@@ -130,7 +133,8 @@ Then install `scapy` and `netcat` for python:
 sudo apt install python3-scapy
 pip3 install netcat
 ```
-## Installing OpenWRT (shared by both OS)
+
+## Installing OpenWRT
 ### 1. Download files
 
 - Clone the repo or download as `.zip`
@@ -204,7 +208,7 @@ interface = "yourinterface"
     <img height="auto" width="auto" src="images/4.png" />
 </p>
 
-- Check the MAC address from [`pppd-cve.py`](https://github.com/impulse/ac2100-openwrt-guide/blob/master/pppd-cve.py#L17) and please adjust accordingly to your device's MAC (you can check it in the bottom of the router).
+- Check the MAC address from [`pppd-cve.py`](https://github.com/impulse/ac2100-openwrt-guide/blob/master/pppd-cve.py#L17) and adjust it accordingly to your device (you can check it in the bottom of the router).
 
 ```py
 # pppd-cve.py#L17
@@ -289,8 +293,6 @@ python3 pppd-cve.py
 
 When the packet has been sent successfully, you should be able to see a connection from `192.168.31.1:63627` in your `netcat` session.
 
-If you don't see a connection, your router may have a different MAC address or the MAC you change previously is not correct. Re-check the MAC address.
-
 This connection can be unstable and you may need to rerun `netcat` and `pppd-cve.py` if it drops.
 
 If you do the following commands quickly, there should be no issues:
@@ -372,9 +374,9 @@ ssh root@routerip
     <img height="auto" width="auto" src="images/18.png" />
 </p>
 
-### 9. Miscellaneous
+## Miscellaneous
 
-#### Flash commands
+### Flash commands
 
 Partition names if you are already on OpenWRT:
 
@@ -390,8 +392,12 @@ mtd write xiaomi-router-kernel1.bin kernel1
 mtd -r write xiaomi-router-rootfs0.bin rootfs0
 ```
 
-#### Prebuilt images by @scp07
+### Prebuilt images by @scp07
 
 Also includes stock recovery image.
 
 - [Google Drive](https://drive.google.com/drive/folders/1WTWvOp-6B54hsCDpuo_hf2JKAaUwmZFG)
+
+### Translations
+- [Spanish (Text)](https://github.com/albertodlc/ac2100-openwrt-guide). By @albertodlc
+- [Spanish (Video)](https://youtu.be/RnIs7BHYrT4)
